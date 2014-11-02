@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/clipperhouse/gen/typewriter"
-	_ "github.com/clipperhouse/gen/typewriters/slice"
+	_ "github.com/clipperhouse/slicewriter"
+	"github.com/clipperhouse/typewriter"
 )
 
 func main() {

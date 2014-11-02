@@ -7,7 +7,7 @@ import (
 	"go/token"
 	"testing"
 
-	"github.com/clipperhouse/gen/typewriter"
+	"github.com/clipperhouse/typewriter"
 )
 
 var typs []typewriter.Type

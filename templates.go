@@ -1,7 +1,7 @@
 package slice
 
 import (
-	"github.com/clipperhouse/gen/typewriter"
+	"github.com/clipperhouse/typewriter"
 )
 
 // a convenience for passing values into templates; in MVC it'd be called a view model
