@@ -3,6 +3,7 @@ package slice
 import "github.com/clipperhouse/typewriter"
 
 var sortInterface = &typewriter.Template{
+	Name: "sortInterface",
 	Text: `
 func (rcv {{.SliceName}}) Len() int {
 	return len(rcv)

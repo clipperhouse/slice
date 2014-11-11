@@ -3,6 +3,7 @@ package slice
 import "github.com/clipperhouse/typewriter"
 
 var distinct = &typewriter.Template{
+	Name: "Distinct",
 	Text: `
 // Distinct returns a new {{.SliceName}} whose elements are unique. See: http://clipperhouse.github.io/gen/#Distinct
 func (rcv {{.SliceName}}) Distinct() (result {{.SliceName}}) {

@@ -3,6 +3,7 @@ package slice
 import "github.com/clipperhouse/typewriter"
 
 var min = &typewriter.Template{
+	Name: "Min",
 	Text: `
 	// Min returns the minimum value of {{.SliceName}}. In the case of multiple items being equally minimal, the first such element is returned. Returns error if no elements. See: http://clipperhouse.github.io/gen/#Min
 	func (rcv {{.SliceName}}) Min() (result {{.Type}}, err error) {
@@ -24,6 +25,7 @@ var min = &typewriter.Template{
 }
 
 var minT = &typewriter.Template{
+	Name: "Min",
 	Text: `
 // Min{{.TypeParameter.LongName}} selects the least value of {{.TypeParameter}} in {{.SliceName}}. Returns error on {{.SliceName}} with no elements. See: http://clipperhouse.github.io/gen/#MinCustom
 func (rcv {{.SliceName}}) Min{{.TypeParameter.LongName}}(fn func({{.Type}}) {{.TypeParameter}}) (result {{.TypeParameter}}, err error) {

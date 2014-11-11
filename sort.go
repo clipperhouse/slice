@@ -3,6 +3,7 @@ package slice
 import "github.com/clipperhouse/typewriter"
 
 var sort = &typewriter.Template{
+	Name: "Sort",
 	Text: `
 // Sort returns a new ordered {{.SliceName}}. See: http://clipperhouse.github.io/gen/#Sort
 func (rcv {{.SliceName}}) Sort() {{.SliceName}} {
@@ -16,6 +17,7 @@ func (rcv {{.SliceName}}) Sort() {{.SliceName}} {
 }
 
 var isSorted = &typewriter.Template{
+	Name: "IsSorted",
 	Text: `
 // IsSorted reports whether {{.SliceName}} is sorted. See: http://clipperhouse.github.io/gen/#Sort
 func (rcv {{.SliceName}}) IsSorted() bool {
@@ -26,6 +28,7 @@ func (rcv {{.SliceName}}) IsSorted() bool {
 }
 
 var sortDesc = &typewriter.Template{
+	Name: "SortDesc",
 	Text: `
 // SortDesc returns a new reverse-ordered {{.SliceName}}. See: http://clipperhouse.github.io/gen/#Sort
 func (rcv {{.SliceName}}) SortDesc() {{.SliceName}} {
@@ -39,6 +42,7 @@ func (rcv {{.SliceName}}) SortDesc() {{.SliceName}} {
 }
 
 var isSortedDesc = &typewriter.Template{
+	Name: "IsSortedDesc",
 	Text: `
 // IsSortedDesc reports whether {{.SliceName}} is reverse-sorted. See: http://clipperhouse.github.io/gen/#Sort
 func (rcv {{.SliceName}}) IsSortedDesc() bool {

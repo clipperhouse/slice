@@ -3,6 +3,7 @@ package slice
 import "github.com/clipperhouse/typewriter"
 
 var average = &typewriter.Template{
+	Name: "Average",
 	Text: `
 // Average sums {{.SliceName}} over all elements and divides by len({{.SliceName}}). See: http://clipperhouse.github.io/gen/#Average
 func (rcv {{.SliceName}}) Average() ({{.Type}}, error) {
@@ -23,6 +24,7 @@ func (rcv {{.SliceName}}) Average() ({{.Type}}, error) {
 }
 
 var averageT = &typewriter.Template{
+	Name: "Average",
 	Text: `
 // Average{{.TypeParameter.LongName}} sums {{.TypeParameter}} over all elements and divides by len({{.SliceName}}). See: http://clipperhouse.github.io/gen/#Average
 func (rcv {{.SliceName}}) Average{{.TypeParameter.LongName}}(fn func({{.Type}}) {{.TypeParameter}}) (result {{.TypeParameter}}, err error) {

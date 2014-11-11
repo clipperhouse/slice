@@ -3,6 +3,7 @@ package slice
 import "github.com/clipperhouse/typewriter"
 
 var max = &typewriter.Template{
+	Name: "Max",
 	Text: `
 	// Max returns the maximum value of {{.SliceName}}. In the case of multiple items being equally maximal, the first such element is returned. Returns error if no elements. See: http://clipperhouse.github.io/gen/#Max
 	func (rcv {{.SliceName}}) Max() (result {{.Type}}, err error) {
@@ -24,6 +25,7 @@ var max = &typewriter.Template{
 }
 
 var maxT = &typewriter.Template{
+	Name: "Max",
 	Text: `
 // Max{{.TypeParameter.LongName}} selects the largest value of {{.TypeParameter}} in {{.SliceName}}. Returns error on {{.SliceName}} with no elements. See: http://clipperhouse.github.io/gen/#MaxCustom
 func (rcv {{.SliceName}}) Max{{.TypeParameter.LongName}}(fn func({{.Type}}) {{.TypeParameter}}) (result {{.TypeParameter}}, err error) {

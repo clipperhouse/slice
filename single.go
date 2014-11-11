@@ -3,6 +3,7 @@ package slice
 import "github.com/clipperhouse/typewriter"
 
 var single = &typewriter.Template{
+	Name: "Single",
 	Text: `
 // Single returns exactly one element of {{.SliceName}} that returns true for the passed func. Returns error if no or multiple elements return true. See: http://clipperhouse.github.io/gen/#Single
 func (rcv {{.SliceName}}) Single(fn func({{.Type}}) bool) (result {{.Type}}, err error) {
