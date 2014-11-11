@@ -27,7 +27,7 @@ func init() {
 		panic(err)
 	}
 
-	t1.Tags = typewriter.Tags{
+	t1.Tags = typewriter.TagSlice{
 		typewriter.Tag{
 			Name: "slice",
 			Values: []typewriter.TagValue{
