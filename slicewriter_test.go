@@ -10,10 +10,10 @@ import (
 	"github.com/clipperhouse/typewriter"
 )
 
-var typs []typewriter.Type
+var pkg *typewriter.Package
 
 func init() {
-	pkg := typewriter.NewPackage("dummy", "SomePackage")
+	pkg = typewriter.NewPackage("dummy", "SomePackage")
 
 	t1, err := pkg.Eval("int")
 
@@ -37,16 +37,16 @@ func init() {
 		},
 	}
 
-	typs = append(typs, t1)
+	pkg.Types = append(pkg.Types, t1)
 }
 
 func TestWrite(t *testing.T) {
-	for _, typ := range typs {
+	for _, typ := range pkg.Types {
 		var b bytes.Buffer
 
 		sw := NewSliceWriter()
 
-		b.WriteString(fmt.Sprintf("package %s\n\n", typ.Package.Name()))
+		b.WriteString(fmt.Sprintf("package %s\n\n", pkg.Name()))
 		sw.WriteBody(&b, typ)
 
 		src := b.String()
