@@ -47,7 +47,7 @@ func TestWrite(t *testing.T) {
 		sw := NewSliceWriter()
 
 		b.WriteString(fmt.Sprintf("package %s\n\n", pkg.Name()))
-		sw.WriteBody(&b, typ)
+		sw.Write(&b, typ)
 
 		src := b.String()
 

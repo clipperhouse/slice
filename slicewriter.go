@@ -33,35 +33,6 @@ func (sw *SliceWriter) Name() string {
 	return "slice"
 }
 
-func (sw *SliceWriter) WriteHeader(w io.Writer, typ typewriter.Type) error {
-	tag, found, err := typ.Tags.ByName("slice")
-
-	if err != nil {
-		return err
-	}
-
-	if !found {
-		return nil
-	}
-
-	s := `// See http://clipperhouse.github.io/gen for documentation
-
-`
-	w.Write([]byte(s))
-
-	if includeSortSupport(tag.Values) {
-		s := `// Sort implementation is a modification of http://golang.org/pkg/sort/#Sort
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found at http://golang.org/LICENSE.
-
-`
-		w.Write([]byte(s))
-	}
-
-	return nil
-}
-
 func (sw *SliceWriter) Imports(typ typewriter.Type) (result []typewriter.ImportSpec) {
 	tag, found, err := typ.Tags.ByName("slice")
 
@@ -108,7 +79,7 @@ func (sw *SliceWriter) Imports(typ typewriter.Type) (result []typewriter.ImportS
 	return result
 }
 
-func (sw *SliceWriter) WriteBody(w io.Writer, typ typewriter.Type) error {
+func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 	tag, found, err := typ.Tags.ByName("slice")
 
 	if err != nil {
@@ -117,6 +88,16 @@ func (sw *SliceWriter) WriteBody(w io.Writer, typ typewriter.Type) error {
 
 	if !found {
 		return nil
+	}
+
+	if includeSortSupport(tag.Values) {
+		s := `// Sort implementation is a modification of http://golang.org/pkg/sort/#Sort
+// Copyright 2009 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found at http://golang.org/LICENSE.
+
+`
+		w.Write([]byte(s))
 	}
 
 	tmpl, err := templates.Get(typ, typewriter.TagValue{Name: "slice"})

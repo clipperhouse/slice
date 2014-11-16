@@ -2,18 +2,16 @@
 // TypeWriter: slice
 // Directive: +test on Thing
 
-// See http://clipperhouse.github.io/gen for documentation
-
-// Sort implementation is a modification of http://golang.org/pkg/sort/#Sort
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found at http://golang.org/LICENSE.
-
 package main
 
 import (
 	"errors"
 )
+
+// Sort implementation is a modification of http://golang.org/pkg/sort/#Sort
+// Copyright 2009 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found at http://golang.org/LICENSE.
 
 // ThingSlice is a slice of type Thing. Use it where you would use []Thing.
 type ThingSlice []Thing

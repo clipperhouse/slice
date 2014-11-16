@@ -2,8 +2,6 @@
 // TypeWriter: slice
 // Directive: +test on Other
 
-// See http://clipperhouse.github.io/gen for documentation
-
 package main
 
 import (
