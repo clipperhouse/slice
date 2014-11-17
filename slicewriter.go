@@ -1,4 +1,4 @@
-package slice
+package slicewriter
 
 import (
 	"io"
