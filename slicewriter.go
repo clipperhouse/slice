@@ -55,7 +55,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 		w.Write([]byte(s))
 	}
 
-	tmpl, err := templates.Get(typ, typewriter.TagValue{Name: "slice"})
+	tmpl, err := templates.ByTagValue(typ, typewriter.TagValue{Name: "slice"})
 
 	if err != nil {
 		return err
@@ -84,7 +84,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 			TagValue:      v,
 		}
 
-		tmpl, err := templates.Get(typ, v) // already validated above
+		tmpl, err := templates.ByTagValue(typ, v) // already validated above
 
 		if err != nil {
 			return err
@@ -96,7 +96,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 	}
 
 	if includeSortInterface(tag.Values) {
-		tmpl, err := templates.Get(typ, typewriter.TagValue{Name: "sortInterface"})
+		tmpl, err := templates.ByTagValue(typ, typewriter.TagValue{Name: "sortInterface"})
 
 		if err != nil {
 			return err
@@ -108,7 +108,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 	}
 
 	if includeSortSupport(tag.Values) {
-		tmpl, err := templates.Get(typ, typewriter.TagValue{Name: "sortImplementation"})
+		tmpl, err := templates.ByTagValue(typ, typewriter.TagValue{Name: "sortImplementation"})
 
 		if err != nil {
 			return err
