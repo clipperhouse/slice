@@ -45,7 +45,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 		return nil
 	}
 
-	if includeSortSupport(tag.Values) {
+	if includeSortImplementation(tag.Values) {
 		s := `// Sort implementation is a modification of http://golang.org/pkg/sort/#Sort
 // Copyright 2009 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
@@ -108,7 +108,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 		}
 	}
 
-	if includeSortSupport(tag.Values) {
+	if includeSortImplementation(tag.Values) {
 		tmpl, err := sortImplementation.Parse()
 
 		if err != nil {
@@ -123,7 +123,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 	return nil
 }
 
-func includeSortSupport(values []typewriter.TagValue) bool {
+func includeSortImplementation(values []typewriter.TagValue) bool {
 	for _, v := range values {
 		if strings.HasPrefix(v.Name, "SortBy") {
 			return true
