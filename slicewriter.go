@@ -39,7 +39,7 @@ func (sw *SliceWriter) Imports(typ typewriter.Type) (result []typewriter.ImportS
 }
 
 func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
-	tag, found := typ.FindTag("slice")
+	tag, found := typ.FindTag(sw.Name())
 
 	if !found {
 		return nil
@@ -55,7 +55,8 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 		w.Write([]byte(s))
 	}
 
-	tmpl, err := templates.ByTagValue(typ, typewriter.TagValue{Name: "slice"})
+	// start with the slice template
+	tmpl, err := templates.ByTag(typ, tag)
 
 	if err != nil {
 		return err
