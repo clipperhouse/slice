@@ -39,11 +39,7 @@ func (sw *SliceWriter) Imports(typ typewriter.Type) (result []typewriter.ImportS
 }
 
 func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
-	tag, found, err := typ.Tags.ByName("slice")
-
-	if err != nil {
-		return err
-	}
+	tag, found := typ.FindTag("slice")
 
 	if !found {
 		return nil
