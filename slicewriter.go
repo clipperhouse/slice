@@ -85,7 +85,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 			TagValue:      v,
 		}
 
-		tmpl, err := templates.ByTagValue(typ, v) // already validated above
+		tmpl, err := templates.ByTagValue(typ, v)
 
 		if err != nil {
 			return err
