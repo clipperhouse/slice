@@ -4,9 +4,7 @@
 
 package main
 
-import (
-	"errors"
-)
+import "errors"
 
 // Sort implementation is a modification of http://golang.org/pkg/sort/#Sort
 // Copyright 2009 The Go Authors. All rights reserved.

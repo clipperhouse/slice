@@ -34,49 +34,8 @@ func (sw *SliceWriter) Name() string {
 }
 
 func (sw *SliceWriter) Imports(typ typewriter.Type) (result []typewriter.ImportSpec) {
-	tag, found, err := typ.Tags.ByName("slice")
-
-	if err != nil {
-		return
-	}
-
-	if !found {
-		return
-	}
-
-	methodRequiresErrors := map[string]bool{
-		"First":   true,
-		"Single":  true,
-		"Max":     true,
-		"Min":     true,
-		"MaxBy":   true,
-		"MinBy":   true,
-		"Average": true,
-	}
-
-	methodRequiresSort := map[string]bool{
-		"Sort": true,
-	}
-
-	imports := make(map[string]bool)
-
-	for _, v := range tag.Values {
-		if methodRequiresErrors[v.Name] {
-			imports["errors"] = true
-		}
-
-		if methodRequiresSort[v.Name] {
-			imports["sort"] = true
-		}
-	}
-
-	for imp := range imports {
-		result = append(result, typewriter.ImportSpec{
-			Path: imp,
-		})
-	}
-
-	return result
+	// typewriter uses golang.org/x/tools/imports, depend on that
+	return
 }
 
 func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
