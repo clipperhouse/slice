@@ -97,7 +97,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 	}
 
 	if includeSortInterface(tag.Values) {
-		tmpl, err := templates.ByTagValue(typ, typewriter.TagValue{Name: "sortInterface"})
+		tmpl, err := sortInterface.Parse()
 
 		if err != nil {
 			return err
@@ -109,7 +109,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 	}
 
 	if includeSortSupport(tag.Values) {
-		tmpl, err := templates.ByTagValue(typ, typewriter.TagValue{Name: "sortImplementation"})
+		tmpl, err := sortImplementation.Parse()
 
 		if err != nil {
 			return err
