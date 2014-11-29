@@ -1,4 +1,4 @@
-package slicewriter
+package slice
 
 import (
 	"github.com/clipperhouse/typewriter"
