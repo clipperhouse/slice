@@ -2,7 +2,6 @@ package slice
 
 import (
 	"io"
-	"regexp"
 	"strings"
 
 	"github.com/clipperhouse/typewriter"
@@ -96,18 +95,6 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 		}
 	}
 
-	if includeSortInterface(tag.Values) {
-		tmpl, err := sortInterface.Parse()
-
-		if err != nil {
-			return err
-		}
-
-		if err := tmpl.Execute(w, m); err != nil {
-			return err
-		}
-	}
-
 	if includeSortImplementation(tag.Values) {
 		tmpl, err := sortImplementation.Parse()
 
@@ -125,17 +112,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 
 func includeSortImplementation(values []typewriter.TagValue) bool {
 	for _, v := range values {
-		if strings.HasPrefix(v.Name, "SortBy") {
-			return true
-		}
-	}
-	return false
-}
-
-func includeSortInterface(values []typewriter.TagValue) bool {
-	reg := regexp.MustCompile(`^Sort(Desc)?$`)
-	for _, v := range values {
-		if reg.MatchString(v.Name) {
+		if strings.HasPrefix(v.Name, "Sort") {
 			return true
 		}
 	}

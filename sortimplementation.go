@@ -7,6 +7,30 @@ var sortImplementation = &typewriter.Template{
 	Text: `
 // Sort implementation based on http://golang.org/pkg/sort/#Sort, see top of this file
 
+func (rcv {{.SliceName}}) sortBy(less func({{.Type}}, {{.Type}}) bool) {{.SliceName}} {
+	result := make({{.SliceName}}, len(rcv))
+	copy(result, rcv)
+	// Switch to heapsort if depth of 2*ceil(lg(n+1)) is reached.
+	n := len(result)
+	maxDepth := 0
+	for i := n; i > 0; i >>= 1 {
+		maxDepth++
+	}
+	maxDepth *= 2
+	quickSort{{.SliceName}}(result, less, 0, n, maxDepth)
+	return result
+}
+
+func (rcv {{.SliceName}}) isSortedBy(less func({{.Type}}, {{.Type}}) bool) bool {
+	n := len(rcv)
+	for i := n - 1; i > 0; i-- {
+		if less(rcv[i], rcv[i-1]) {
+			return false
+		}
+	}
+	return true
+}
+
 func swap{{.SliceName}}(rcv {{.SliceName}}, a, b int) {
 	rcv[a], rcv[b] = rcv[b], rcv[a]
 }

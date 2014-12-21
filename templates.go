@@ -50,5 +50,4 @@ var templates = typewriter.TemplateSlice{
 	isSortedByDesc,
 
 	sortImplementation,
-	sortInterface,
 }

@@ -156,17 +156,7 @@ func (rcv ThingSlice) Where(fn func(Thing) bool) (result ThingSlice) {
 
 // SortBy returns a new ordered ThingSlice, determined by a func defining ‘less’. See: http://clipperhouse.github.io/gen/#SortBy
 func (rcv ThingSlice) SortBy(less func(Thing, Thing) bool) ThingSlice {
-	result := make(ThingSlice, len(rcv))
-	copy(result, rcv)
-	// Switch to heapsort if depth of 2*ceil(lg(n+1)) is reached.
-	n := len(result)
-	maxDepth := 0
-	for i := n; i > 0; i >>= 1 {
-		maxDepth++
-	}
-	maxDepth *= 2
-	quickSortThingSlice(result, less, 0, n, maxDepth)
-	return result
+	return rcv.sortBy(less)
 }
 
 // SortByDesc returns a new, descending-ordered ThingSlice, determined by a func defining ‘less’. See: http://clipperhouse.github.io/gen/#SortBy
@@ -174,18 +164,12 @@ func (rcv ThingSlice) SortByDesc(less func(Thing, Thing) bool) ThingSlice {
 	greater := func(a, b Thing) bool {
 		return less(b, a)
 	}
-	return rcv.SortBy(greater)
+	return rcv.sortBy(greater)
 }
 
 // IsSortedBy reports whether an instance of ThingSlice is sorted, using the pass func to define ‘less’. See: http://clipperhouse.github.io/gen/#SortBy
 func (rcv ThingSlice) IsSortedBy(less func(Thing, Thing) bool) bool {
-	n := len(rcv)
-	for i := n - 1; i > 0; i-- {
-		if less(rcv[i], rcv[i-1]) {
-			return false
-		}
-	}
-	return true
+	return rcv.isSortedBy(less)
 }
 
 // IsSortedDesc reports whether an instance of ThingSlice is sorted in descending order, using the pass func to define ‘less’. See: http://clipperhouse.github.io/gen/#SortBy
@@ -193,7 +177,7 @@ func (rcv ThingSlice) IsSortedByDesc(less func(Thing, Thing) bool) bool {
 	greater := func(a, b Thing) bool {
 		return less(b, a)
 	}
-	return rcv.IsSortedBy(greater)
+	return rcv.isSortedBy(greater)
 }
 
 // AggregateOther iterates over ThingSlice, operating on each element while maintaining ‘state’. See: http://clipperhouse.github.io/gen/#Aggregate
@@ -283,6 +267,30 @@ func (rcv ThingSlice) SumOther(fn func(Thing) Other) (result Other) {
 }
 
 // Sort implementation based on http://golang.org/pkg/sort/#Sort, see top of this file
+
+func (rcv ThingSlice) sortBy(less func(Thing, Thing) bool) ThingSlice {
+	result := make(ThingSlice, len(rcv))
+	copy(result, rcv)
+	// Switch to heapsort if depth of 2*ceil(lg(n+1)) is reached.
+	n := len(result)
+	maxDepth := 0
+	for i := n; i > 0; i >>= 1 {
+		maxDepth++
+	}
+	maxDepth *= 2
+	quickSortThingSlice(result, less, 0, n, maxDepth)
+	return result
+}
+
+func (rcv ThingSlice) isSortedBy(less func(Thing, Thing) bool) bool {
+	n := len(rcv)
+	for i := n - 1; i > 0; i-- {
+		if less(rcv[i], rcv[i-1]) {
+			return false
+		}
+	}
+	return true
+}
 
 func swapThingSlice(rcv ThingSlice, a, b int) {
 	rcv[a], rcv[b] = rcv[b], rcv[a]
