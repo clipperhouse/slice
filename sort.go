@@ -7,10 +7,10 @@ var sort = &typewriter.Template{
 	Text: `
 // Sort returns a new ordered {{.SliceName}}. See: http://clipperhouse.github.io/gen/#Sort
 func (rcv {{.SliceName}}) Sort() {{.SliceName}} {
-	less := func(a, b {{.Type}}) bool {
-		return a < b
-	}
-	return rcv.sortBy(less)
+	result := make({{.SliceName}}, len(rcv))
+	copy(result, rcv)
+	sort.Sort(result)
+	return result
 }
 `,
 	TypeConstraint: typewriter.Constraint{Ordered: true},
@@ -21,10 +21,7 @@ var isSorted = &typewriter.Template{
 	Text: `
 // IsSorted reports whether {{.SliceName}} is sorted. See: http://clipperhouse.github.io/gen/#Sort
 func (rcv {{.SliceName}}) IsSorted() bool {
-	less := func(a, b {{.Type}}) bool {
-		return a < b
-	}
-	return rcv.isSortedBy(less)
+	return sort.IsSorted(rcv)
 }
 `,
 	TypeConstraint: typewriter.Constraint{Ordered: true},
@@ -35,10 +32,10 @@ var sortDesc = &typewriter.Template{
 	Text: `
 // SortDesc returns a new reverse-ordered {{.SliceName}}. See: http://clipperhouse.github.io/gen/#Sort
 func (rcv {{.SliceName}}) SortDesc() {{.SliceName}} {
-	greater := func(a, b {{.Type}}) bool {
-		return b < a
-	}
-	return rcv.sortBy(greater)
+	result := make({{.SliceName}}, len(rcv))
+	copy(result, rcv)
+	sort.Sort(sort.Reverse(result))
+	return result
 }
 `,
 	TypeConstraint: typewriter.Constraint{Ordered: true},
@@ -49,10 +46,7 @@ var isSortedDesc = &typewriter.Template{
 	Text: `
 // IsSortedDesc reports whether {{.SliceName}} is reverse-sorted. See: http://clipperhouse.github.io/gen/#Sort
 func (rcv {{.SliceName}}) IsSortedDesc() bool {
-	greater := func(a, b {{.Type}}) bool {
-		return b < a
-	}
-	return rcv.isSortedBy(greater)
+	return sort.IsSorted(sort.Reverse(rcv))
 }
 `,
 	TypeConstraint: typewriter.Constraint{Ordered: true},
