@@ -15,10 +15,6 @@ func init() {
 	}
 }
 
-type cache struct {
-	values []typewriter.TagValue
-}
-
 func SliceName(typ typewriter.Type) string {
 	return typ.Name + "Slice"
 }
