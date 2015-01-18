@@ -4,7 +4,10 @@
 
 package main
 
-import "errors"
+import (
+	"errors"
+	"math/rand"
+)
 
 // Sort implementation is a modification of http://golang.org/pkg/sort/#Sort
 // Copyright 2009 The Go Authors. All rights reserved.
@@ -272,6 +275,18 @@ func (rcv ThingSlice) SelectOther(fn func(Thing) Other) (result []Other) {
 		result = append(result, fn(v))
 	}
 	return
+}
+
+// Shuffle returns a shuffled copy of ThingSlice, using a version of the Fisher-Yates shuffle. See: http://clipperhouse.github.io/gen/#Shuffle
+func (rcv ThingSlice) Shuffle() ThingSlice {
+	numItems := len(rcv)
+	result := make(ThingSlice, numItems)
+	copy(result, rcv)
+	for i := 0; i < numItems; i++ {
+		r := i + rand.Intn(numItems-i)
+		result[r], result[i] = result[i], result[r]
+	}
+	return result
 }
 
 // SumOther sums Thing over elements in ThingSlice. See: http://clipperhouse.github.io/gen/#Sum
