@@ -51,4 +51,6 @@ var templates = typewriter.TemplateSlice{
 
 	sortImplementation,
 	sortInterface,
+
+    shuffle,
 }
