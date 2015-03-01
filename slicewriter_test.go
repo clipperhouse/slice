@@ -31,8 +31,8 @@ func init() {
 		typewriter.Tag{
 			Name: "slice",
 			Values: []typewriter.TagValue{
-				{"GroupBy", []typewriter.Type{t2}},
-				{"Where", nil},
+				{Name: "GroupBy", TypeParameters: []typewriter.Type{t2}},
+				{Name: "Where", TypeParameters: nil},
 			},
 		},
 	}
