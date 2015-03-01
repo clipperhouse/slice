@@ -61,13 +61,14 @@ func (rcv ThingSlice) Distinct() (result ThingSlice) {
 
 // DistinctBy returns a new ThingSlice whose elements are unique, where equality is defined by a passed func. See: http://clipperhouse.github.io/gen/#DistinctBy
 func (rcv ThingSlice) DistinctBy(equal func(Thing, Thing) bool) (result ThingSlice) {
+Outer:
 	for _, v := range rcv {
-		eq := func(_app Thing) bool {
-			return equal(v, _app)
+		for _, r := range result {
+			if equal(v, r) {
+				continue Outer
+			}
 		}
-		if !result.Any(eq) {
-			result = append(result, v)
-		}
+		result = append(result, v)
 	}
 	return result
 }
