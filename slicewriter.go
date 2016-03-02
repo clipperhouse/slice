@@ -41,7 +41,7 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 		return nil
 	}
 
-	tag.AddDefaultsIfNeeded(typ, templates)
+	tag.AddDefaultsIfNeeded(typ, templates[1:])
 
 	if includeSortImplementation(tag.Values) {
 		s := `// Sort implementation is a modification of http://golang.org/pkg/sort/#Sort
