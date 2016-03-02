@@ -14,4 +14,6 @@ func (rcv {{.SliceName}}) Less(i, j int) bool {
 func (rcv {{.SliceName}}) Swap(i, j int) {
 	rcv[i], rcv[j] = rcv[j], rcv[i]
 }
-`}
+`,
+	TypeConstraint: typewriter.Constraint{Ordered: true},
+}

@@ -177,4 +177,6 @@ func quickSort{{.SliceName}}(rcv {{.SliceName}}, less func({{.Type}}, {{.Type}})
 		insertionSort{{.SliceName}}(rcv, less, a, b)
 	}
 }
-`}
+`,
+	TypeConstraint: typewriter.Constraint{Ordered: true},
+}
