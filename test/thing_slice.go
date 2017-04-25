@@ -92,6 +92,16 @@ func (rcv ThingSlice) First(fn func(Thing) bool) (result Thing, err error) {
 	return
 }
 
+// MapOther produces a new slice of values by mapping each value in list through a transformation function.
+func (rcv ThingSlice) MapOther(fn func(Thing) Other) []Other {
+	numItems := len(rcv)
+	result := make([]Other, numItems)
+	for i := 0; i < numItems; i++ {
+		result[i] = fn(rcv[i])
+	}
+	return result
+}
+
 // MaxBy returns an element of ThingSlice containing the maximum value, when compared to other elements using a passed func defining ‘less’. In the case of multiple items being equally maximal, the last such element is returned. Returns error if no elements. See: http://clipperhouse.github.io/gen/#MaxBy
 func (rcv ThingSlice) MaxBy(less func(Thing, Thing) bool) (result Thing, err error) {
 	l := len(rcv)

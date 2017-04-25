@@ -1,4 +1,4 @@
-// Run this before testing: go setup.go
+// Run this before testing: go run setup.go
 
 package main
 
