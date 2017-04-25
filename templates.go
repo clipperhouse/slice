@@ -27,6 +27,7 @@ var templates = typewriter.TemplateSlice{
 	each,
 	first,
 	groupByT,
+	mapT,
 	max,
 	maxT,
 	maxBy,
@@ -52,5 +53,5 @@ var templates = typewriter.TemplateSlice{
 	sortImplementation,
 	sortInterface,
 
-    shuffle,
+	shuffle,
 }
