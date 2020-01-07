@@ -1,5 +1,5 @@
-github.com/clipperhouse/typewriter v0.0.0-20180611194931-86cb4c0175cc h1:m8F4dkHv/Z81PpLTaf+YCfU7qXzTTYclXwO+iU34SHQ=
-github.com/clipperhouse/typewriter v0.0.0-20180611194931-86cb4c0175cc/go.mod h1:22kCkEqgk8mZZLKxg8OE81J/HZLI81vW5cuSEE3p0KY=
+github.com/clipperhouse/typewriter v0.0.0-20200107164453-d21420026310 h1:IC0Ywh01N6qQ+jT87vS4zhVsrE1q3829nVMQwz7PF3o=
+github.com/clipperhouse/typewriter v0.0.0-20200107164453-d21420026310/go.mod h1:GbdR1VEFLckXDXyXO3pn/lERXrQLVOI9j1Fly05g32I=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550/go.mod h1:yigFU9vqHzYiE8UmvKecakEJjdnWj3jj499lnFckfCI=
 golang.org/x/mod v0.1.1-0.20191105210325-c90efee705ee/go.mod h1:QqPTAvyqsEbceGzBzNggFXnrqF1CaUcvgkdR5Ot7KZg=
