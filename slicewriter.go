@@ -41,6 +41,8 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 		return nil
 	}
 
+	tag.AddDefaultsIfNeeded(typ, templates[1:])
+
 	if includeSortImplementation(tag.Values) {
 		s := `// Sort implementation is a modification of http://golang.org/pkg/sort/#Sort
 // Copyright 2009 The Go Authors. All rights reserved.
@@ -120,6 +122,13 @@ func (sw *SliceWriter) Write(w io.Writer, typ typewriter.Type) error {
 }
 
 func includeSortImplementation(values []typewriter.TagValue) bool {
+	// Don't include it if it's already included.
+	for _, v := range values {
+		if v.Name == "sortImplementation" {
+			return false
+		}
+	}
+
 	for _, v := range values {
 		if strings.HasPrefix(v.Name, "SortBy") {
 			return true
@@ -129,6 +138,13 @@ func includeSortImplementation(values []typewriter.TagValue) bool {
 }
 
 func includeSortInterface(values []typewriter.TagValue) bool {
+	// Don't include it if it's already included.
+	for _, v := range values {
+		if v.Name == "sortInterface" {
+			return false
+		}
+	}
+
 	reg := regexp.MustCompile(`^Sort(Desc)?$`)
 	for _, v := range values {
 		if reg.MatchString(v.Name) {
