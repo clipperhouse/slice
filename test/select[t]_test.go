@@ -23,3 +23,22 @@ func TestSelectOther(t *testing.T) {
 		t.Errorf("SelectOther should result in %v, got %v", expected1, select1)
 	}
 }
+
+func TestPointerSelectOther(t *testing.T) {
+	things := PointerThingSlice{
+		{"First", 60},
+		{"Second", -20},
+		{"Third", 100},
+	}
+
+	number := func(x *PointerThing) Other {
+		return x.Number
+	}
+
+	select1 := things.SelectOther(number)
+	expected1 := []Other{60, -20, 100}
+
+	if !reflect.DeepEqual(select1, expected1) {
+		t.Errorf("SelectOther should result in %v, got %v", expected1, select1)
+	}
+}

@@ -32,3 +32,34 @@ func TestMaxBy(t *testing.T) {
 		t.Errorf("MaxBy Number should fail on empty slice")
 	}
 }
+
+func TestPointerMaxBy(t *testing.T) {
+	things := PointerThingSlice{
+		{"First", 60},
+		{"Second", -20},
+		{"Third", 100},
+		{"Fourth", 10},
+	}
+
+	max1, err1 := things.MaxBy(func(a, b *PointerThing) bool {
+		return a.Number < b.Number
+	})
+
+	if err1 != nil {
+		t.Errorf("MaxBy Number should succeed")
+	}
+
+	expected1 := &PointerThing{"Third", 100}
+
+	if *max1 != *expected1 {
+		t.Errorf("MaxBy Number should return %v, got %v", expected1, max1)
+	}
+
+	_, err2 := PointerThingSlice{}.MaxBy(func(a, b *PointerThing) bool {
+		return true
+	})
+
+	if err2 == nil {
+		t.Errorf("MaxBy Number should fail on empty slice")
+	}
+}

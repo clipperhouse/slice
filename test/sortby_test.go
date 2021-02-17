@@ -111,3 +111,110 @@ func appendMany(x Thing, n int) (result ThingSlice) {
 	}
 	return
 }
+
+func TestPointerSortBy(t *testing.T) {
+	first := &PointerThing{"First", 60}
+	second := &PointerThing{"Second", 40}
+	third := &PointerThing{"Third", 100}
+	anotherThird := &PointerThing{"Third", 100}
+	fourth := &PointerThing{"Fourth", 40}
+	fifth := &PointerThing{"Fifth", 70}
+	sixth := &PointerThing{"Sixth", 10}
+	seventh := &PointerThing{"Seventh", 50}
+	eighth := &PointerThing{"Eighth", 110}
+
+	things := PointerThingSlice{
+		first,
+		second,
+		third,
+		anotherThird,
+		fourth,
+	}
+
+	lotsOfThings := PointerThingSlice{
+		first,
+		second,
+		third,
+		fourth,
+		fifth,
+		sixth,
+		seventh,
+		eighth,
+	}
+
+	name := func(a, b *PointerThing) bool {
+		return a.Name < b.Name
+	}
+
+	sort1 := things.SortBy(name)
+
+	sorted1 := PointerThingSlice{first, fourth, second, third, anotherThird}
+
+	if !reflect.DeepEqual(sort1, PointerThingSlice{first, fourth, second, third, anotherThird}) {
+		t.Errorf("SortBy name should be %v, got %v", sorted1, sort1)
+	}
+
+	if !sort1.IsSortedBy(name) {
+		t.Errorf("IsSortedBy name should be true")
+	}
+
+	if things.IsSortedBy(name) {
+		t.Errorf("things should not be sorted by name")
+	}
+
+	sort2 := things.SortByDesc(name)
+
+	sorted2 := PointerThingSlice{anotherThird, third, second, fourth, first}
+
+	if !reflect.DeepEqual(sort2, sorted2) {
+		t.Errorf("SortByDesc name should be %v, got %v", sorted2, sort2)
+	}
+
+	if !sort2.IsSortedByDesc(name) {
+		t.Errorf("IsSortedByDesc name should be true %v", sort2)
+	}
+
+	if things.IsSortedByDesc(name) {
+		t.Errorf("things should not be sorted desc by name")
+	}
+
+	// intended to hit threshold to invoke quicksort (7)
+	sort3 := lotsOfThings.SortBy(name)
+
+	sorted3 := PointerThingSlice{eighth, fifth, first, fourth, second, seventh, sixth, third}
+
+	if !reflect.DeepEqual(sort3, sorted3) {
+		t.Errorf("Sort name should be %v, got %v", sorted3, sort3)
+	}
+
+	// intended to hit threshold to invoke medianOfThree (40)
+	var evenMore PointerThingSlice
+	evenMore = append(evenMore, lotsOfThings...)
+	evenMore = append(evenMore, lotsOfThings...)
+	evenMore = append(evenMore, lotsOfThings...)
+	evenMore = append(evenMore, lotsOfThings...)
+	evenMore = append(evenMore, lotsOfThings...)
+	evenMore = append(evenMore, lotsOfThings...)
+
+	sort4 := evenMore.SortBy(name)
+
+	sorted4 := PointerThingSlice{eighth, eighth, eighth, eighth, eighth, eighth}
+	sorted4 = append(sorted4, appendManyP(fifth, 6)...)
+	sorted4 = append(sorted4, appendManyP(first, 6)...)
+	sorted4 = append(sorted4, appendManyP(fourth, 6)...)
+	sorted4 = append(sorted4, appendManyP(second, 6)...)
+	sorted4 = append(sorted4, appendManyP(seventh, 6)...)
+	sorted4 = append(sorted4, appendManyP(sixth, 6)...)
+	sorted4 = append(sorted4, appendManyP(third, 6)...)
+
+	if !reflect.DeepEqual(sort4, sorted4) {
+		t.Errorf("Sort name should be %v, got %v", sorted3, sort3)
+	}
+}
+
+func appendManyP(x *PointerThing, n int) (result PointerThingSlice) {
+	for i := 0; i < n; i++ {
+		result = append(result, x)
+	}
+	return
+}
