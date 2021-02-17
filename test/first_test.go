@@ -38,3 +38,40 @@ func TestFirst(t *testing.T) {
 		t.Errorf("First should fail on empty slice")
 	}
 }
+
+func TestPointerFirst(t *testing.T) {
+	things := PointerThingSlice{
+		{"First", 0},
+		{"Second", 0},
+		{"Third", 0},
+	}
+
+	f1, err1 := things.First(func(x *PointerThing) bool {
+		return x.Name == "Third"
+	})
+
+	if err1 != nil {
+		t.Errorf("First should succeed when finding Name == Third")
+	}
+
+	expected1 := &PointerThing{"Third", 0}
+	if *f1 != *expected1 {
+		t.Errorf("First should find %v, but found %v", expected1, f1)
+	}
+
+	_, err2 := things.First(func(x *PointerThing) bool {
+		return x.Name == "Dummy"
+	})
+
+	if err2 == nil {
+		t.Errorf("First should fail when finding Name == Dummy")
+	}
+
+	_, err3 := PointerThingSlice{}.First(func(x *PointerThing) bool {
+		return true
+	})
+
+	if err3 == nil {
+		t.Errorf("First should fail on empty slice")
+	}
+}

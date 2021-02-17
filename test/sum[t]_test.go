@@ -19,3 +19,21 @@ func TestSumOther(t *testing.T) {
 		t.Errorf("SumOther should result in %v, got %v", 340, sum1)
 	}
 }
+
+func TestPointerSumOther(t *testing.T) {
+	things := PointerThingSlice{
+		{"First", 60},
+		{"Second", -20},
+		{"Third", 100},
+	}
+
+	number := func(x *PointerThing) Other {
+		return x.Number
+	}
+
+	sum1 := things.SumOther(number)
+
+	if sum1 != 140 {
+		t.Errorf("SumOther should result in %v, got %v", 340, sum1)
+	}
+}

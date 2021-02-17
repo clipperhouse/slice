@@ -33,3 +33,35 @@ func TestAll(t *testing.T) {
 		t.Errorf("All should evaulate true for empty slices")
 	}
 }
+
+func TestPointerAll(t *testing.T) {
+	things := PointerThingSlice{
+		{"First", 60},
+		{"Second", -20},
+		{"Third", 100},
+	}
+
+	all1 := things.All(func(x *PointerThing) bool {
+		return x.Name == "First"
+	})
+
+	if all1 {
+		t.Errorf("All should be false for Name == 'First'")
+	}
+
+	all2 := things.All(func(x *PointerThing) bool {
+		return x.Name == "First" || x.Name == "Second" || x.Name == "Third"
+	})
+
+	if !all2 {
+		t.Errorf("All should be true")
+	}
+
+	all3 := PointerThingSlice{}.All(func(x *PointerThing) bool {
+		return false
+	})
+
+	if !all3 {
+		t.Errorf("All should evaulate true for empty slices")
+	}
+}
