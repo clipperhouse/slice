@@ -49,11 +49,11 @@ func (rcv PointerThingSlice) Count(fn func(*PointerThing) bool) (result int) {
 
 // Distinct returns a new PointerThingSlice whose elements are unique. See: http://clipperhouse.github.io/gen/#Distinct
 func (rcv PointerThingSlice) Distinct() (result PointerThingSlice) {
-	appended := make(map[*PointerThing]bool)
+	appended := make(map[PointerThing]bool)
 	for _, v := range rcv {
-		if !appended[v] {
+		if !appended[*v] {
 			result = append(result, v)
-			appended[v] = true
+			appended[*v] = true
 		}
 	}
 	return result
